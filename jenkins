@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('git download') {
+            steps {
+                git 'https://github.com/sunnyramagiri/ansibleplaybook-dockerimages.git'
+            }
+        }
+        stage('ansible') {
+            steps{
+                sh 'ssh ubuntu@172.31.18.123 ansible-playbook /home/ubuntu/docker-image.yml -b '
+            }
+        }
+    }
+}
