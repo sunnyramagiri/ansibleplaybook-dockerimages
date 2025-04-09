@@ -3,6 +3,8 @@
   hosts: all
   become: true
   tasks:
+    - name: copy the file to remote server
+      shell: scp -r /var/lib/jenkins/workspace/ansible-pipeline/ root@52.55.181.126~:/project/
     - name: remove the present image 
       docker_image:
         name: mysql
