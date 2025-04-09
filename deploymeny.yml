@@ -1,0 +1,31 @@
+---
+- name: building the docker images
+  hosts: all
+  become: true
+  tasks:
+    - name: remove the present image 
+      docker_image:
+        name: mysql
+        state: absent
+    - name: pull the docker image from docker hub
+      docker_image:
+        name: mysql
+        source: pull
+        state: present  
+    - name: run the MySQL image 
+      docker_container:
+        name: mydb
+        image: mysql
+        state: started  
+        restart_policy: always  
+        ports:
+          - "7070:3306"
+        env:
+          MYSQL_ROOT_PASSWORD: my-secret-pw
+    - name: install webserver
+      docker_container:
+        name: webserver
+        image: tomee
+        state: started
+        ports:
+          - "6060:8080"
