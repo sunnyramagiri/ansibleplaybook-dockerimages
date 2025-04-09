@@ -1,0 +1,8 @@
+---
+- name: create img
+  hosts: node
+  tasks:
+    - name: create image
+      docker_image:
+        name: ngnix:latest
+
